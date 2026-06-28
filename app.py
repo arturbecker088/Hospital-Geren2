@@ -120,7 +120,7 @@ def buscar_fila():
                 "prioridade": r[2],
                 "status": r[3],
                 "classificacao": r[4],
-                "data_entrada": str(r[5]),
+                "data_entrada": r[5].strftime("%Y-%m-%dT%H:%M:%S") if r[5] else None,  # UTC sem offset — JS adiciona Z
                 "sintomas_texto": r[6] or "",
                 "comorbidades_texto": r[7] or "",
                 "veredito_texto": r[8] or "",
