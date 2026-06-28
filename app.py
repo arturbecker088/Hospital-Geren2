@@ -105,7 +105,8 @@ def buscar_fila():
         cursor.execute("""
             SELECT f.id_triagem, p.nome, f.prioridade, f.status,
                    t.classificacao, f.hora_entrada,
-                   t.sintomas_texto, t.comorbidades_texto, t.veredito_texto, t.protocolo_texto
+                   t.sintomas_texto, t.comorbidades_texto, t.veredito_texto, t.protocolo_texto,
+                   p.data_nascimento
             FROM fila_atendimento f
             JOIN triagens t ON f.id_triagem = t.id_triagem
             JOIN pacientes p ON t.id_paciente = p.id_paciente
@@ -120,11 +121,12 @@ def buscar_fila():
                 "prioridade": r[2],
                 "status": r[3],
                 "classificacao": r[4],
-                "data_entrada": r[5].strftime("%Y-%m-%dT%H:%M:%S") if r[5] else None,  # UTC sem offset — JS adiciona Z
+                "data_entrada": r[5].strftime("%Y-%m-%dT%H:%M:%S") if r[5] else None,
                 "sintomas_texto": r[6] or "",
                 "comorbidades_texto": r[7] or "",
                 "veredito_texto": r[8] or "",
-                "protocolo_texto": r[9] or ""
+                "protocolo_texto": r[9] or "",
+                "data_nascimento": str(r[10]) if r[10] else None
             } for r in rows
         ]
         return jsonify(fila)
