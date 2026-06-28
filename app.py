@@ -18,9 +18,25 @@ def index():
 @app.route('/pacientes', methods=['POST'])
 def criar_paciente():
     dados = request.get_json()
-    nome = dados.get('nome')
+    nome = dados.get('nome', '').strip()
     cpf = dados.get('cpf', '').replace('.', '').replace('-', '').strip()
-    data_nascimento = dados.get('data_nascimento')
+    data_nascimento = dados.get('data_nascimento', '').strip()
+
+    # Validações básicas
+    if not nome:
+        return jsonify({"erro": "Nome é obrigatório"}), 400
+    if len(cpf) != 11 or not cpf.isdigit():
+        return jsonify({"erro": f"CPF inválido: '{cpf}'. Deve ter exatamente 11 dígitos numéricos."}), 400
+
+    # Valida formato e valor da data (esperado: YYYY-MM-DD)
+    from datetime import date
+    try:
+        from datetime import datetime
+        data_obj = datetime.strptime(data_nascimento, '%Y-%m-%d').date()
+        if data_obj > date.today() or data_obj.year < 1900:
+            return jsonify({"erro": f"Data de nascimento inválida: '{data_nascimento}'"}), 400
+    except (ValueError, TypeError):
+        return jsonify({"erro": f"Formato de data inválido: '{data_nascimento}'. Esperado YYYY-MM-DD."}), 400
 
     conn = obter_conexao()
     if not conn:
