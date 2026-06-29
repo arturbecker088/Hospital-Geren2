@@ -184,32 +184,31 @@ def emergencia_direta():
             (nome, cpf_temp, '1900-01-01')
         )
         id_paciente = cursor.fetchone()[0]
-
-        # Cria triagem de emergência
-        cursor.execute(
-            """
-            INSERT INTO triagens (id_paciente, id_enfermeiro, consciente, pontuacao_sintomas, pontuacao_risco, pontuacao_total, classificacao)
-            VALUES (%s, 1, false, 0, 0, 100, 'VERMELHO') RETURNING id_triagem
-            """,
-            (id_paciente,)
-        )
-        id_triagem = cursor.fetchone()[0]
-
-        # Adiciona na frente da fila
-        cursor.execute(
-            "INSERT INTO fila_atendimento (id_triagem, prioridade, status) VALUES (%s, 1, 'AGUARDANDO')",
-            (id_triagem,)
-        )
-
         conn.commit()
-        return jsonify({"status": "sucesso", "id_triagem": id_triagem}), 201
-
     except Exception as e:
         conn.rollback()
         return jsonify({"erro": str(e)}), 500
     finally:
         cursor.close()
         conn.close()
+
+    # Usa processar_triagem para gravar classificacao, protocolo_texto e
+    # veredito_texto corretamente — é isso que o front usa para pintar o
+    # botão vermelho e mostrar o motivo na coluna de sintomas/veredito
+    resultado = processar_triagem(
+        id_paciente=id_paciente,
+        id_enfermeiro=1,
+        classificacao='EMERGÊNCIA',
+        consciente=False,
+        sintomas_texto='',
+        comorbidades_texto='',
+        veredito_texto=obs,
+        protocolo_texto='EMERGÊNCIA DIRETA'
+    )
+
+    if resultado:
+        return jsonify({"status": "sucesso", "id_triagem": resultado["id_triagem"]}), 201
+    return jsonify({"erro": "Falha ao salvar emergência"}), 500
 
 
 if __name__ == '__main__':
