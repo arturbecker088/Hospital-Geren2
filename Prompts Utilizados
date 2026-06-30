@@ -1,0 +1,25 @@
+// Como posso criar uma interface para um projeto de sistema de triagem de hospital? posso criar no pycharm através de html e outros? Assim ele vai ficar disponível no navegador?
+
+
+// Crie uma interface de triagem hospitalar simples usando HTML, CSS e JavaScript no Pycharm. O sistema precisa de um formulário com os campos: Nome Completo, CPF, Data de Nascimento, Sintomas e Comorbidades. Ao lado do formulário, deve haver uma tabela exibindo a Fila de Atendimento. Quando o usuário enviar o formulário, o paciente deve ser inserido nessa tabela, sem recarregar a página. 
+
+// Todas devem ser em abas separadas, primeiro os dados, depois sintomas, depois comorbidades.
+
+// Preciso deixar o design muito mais moderno e profissional, ocupando melhor o espaço de um monitor grande e centralizando os elementos. No formulário, substitua o campo de texto “Sintomas” por um banco de múltiplos sintomas, febre, dor de cabeça, falta de ar etc.
+
+// Coloque esse logo:
+
+// tenho esse app de sistema de triagem, mas nessa imagem q é a última aba de protocolo, os protocolos q eram pra estar na pasta protocolos.js não estão aparecendo, como corrigir isso? pode ser q tenha erros nos outros arquivos também
+
+// Crie um botão para “outros” em comorbidades.
+// Mudar algumas mais umas coisas:
+// quando eu clicar na "data de nascimento" , eu quero que vá sempre pro início no dia "dd" , pra n precisar começar do ano, sempre a ordem dd->mm->aaaa, indepentende de onde o usuário clicar (no inicio ou fim ou meio)....
+// pode adicionar mais sintomas e mais comorbidades. Ao final quando um paciente é inserido na fila de atendimento ativa, deve ser adicionado e aparecer os sintomas e as comorbidades, além do que já está ali.
+// A coluna ds_explicação, que é a explicação da condição que o paciente tem deve ficar oculta, e aparecer somente se o usuário clicar num balãozinho de "explicação", que ficará disponível logo abaixo para clicar e ver o bloco de texto da explicação, tudo dentro do mesmo "bloco" do próprio paciente (apenas ocultar a explicação e torna-la visível somente através de um botão caso desejado pelo usuário).
+// eu tenho um banco de dados no neon, e o backend n está interligado a interface... o que eu preciso adicionar ao meu código para tornar possível essa interligação entre eles? Que ferramenta/site posso usar para tornar viável essa comunicação?
+
+
+// aquela explicação de cada um, "VIA AÉREA PODE ESTAR OBSTRUÍDA POR NÃO SE MANTER PÉRVIA OU POR PERDER REFLEXOS PROTETORES QUE EVITAM ASPIRAÇÃO. A FALÊNCIA EM SE MANTER VIA AÉREA PÉRVIA RESULTARÁ EM OBSTRUÇÃO TOTAL INTERMITENTE OU OBSTRUÇÃO PARCIAL MANIFESTADA POR RONCOS OU GORGOLEJOS DURANTE A RESPIRAÇÃO." por exemplo, deve ficar exatamente embaixo da OBSTRUÇÃO DE VIAS AÉREAS, pq vai servir pro enfermeiro tirar a dúvida... ou seja, só troque o botão explicação para abaixo de cada uma das perguntas no item "4 - protocolo" . pode tirar ele da fila de atendimento
+// quando eu cadastrar um paciente de emergência, ele não precisa preencher formulário nenhum, só o nome, e já entra direto na frente de todo mundo na fila 
+
+//EU possuo essa interface de sistema de triagem, não possuo o backend pq está sendo feita por outros colegas, e tenho um banco de dados no neon. Como eu faço pra integrar a interface com o banco? o que devo colocar no código, que links devo integrar
